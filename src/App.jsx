@@ -1,33 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import VideoBackground from './videoBG'
+import Quote from './Quote';
+import quotes from './quotes.json';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const videos = [
+    { id: '8g18jFHCLXk', duration: 207, aspectRatio: 'cinematic' }, // 3:27
+    { id: '_YUzQa_1RCE', duration: 183, aspectRatio: 'standard' }  // 3:03
+  ];
+
+  const selectedVideo = videos[Math.floor(Math.random() * videos.length)];
+  const randomStart = Math.floor(Math.random() * selectedVideo.duration);
+
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <VideoBackground
+        videoId={selectedVideo.id}
+        startSeconds={randomStart}
+        aspectRatio={selectedVideo.aspectRatio}
+      />
+      <Quote quote={randomQuote.quote} credit={randomQuote.credit} />
     </>
   )
 }
